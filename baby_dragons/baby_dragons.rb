@@ -1,5 +1,6 @@
 class Dragons
-  attr_accessor :first_name, :color, :full_name, :likes, :dislikes, :current_location
+  attr_accessor :first_name, :color 
+  attr_reader :full_name, :current_location
 
   def initialize(name, color)
     @first_name = name.capitalize
@@ -18,8 +19,17 @@ class Dragons
     
     if family.has_value?(color)
       a = family.key(color)
-      @full_name = name + " " + a 
+      @full_name = first_name + " " + a 
     end
+    puts "You dragon's full name is #{full_name}"
+    ask_for_next_move
+  end
+
+  def ask_for_next_move
+    puts "What do you want to do with your dragon now? You can walk or feed #{first_name}"
+    command = gets.chomp
+
+    action(command)
   end
 
   def action(command)
@@ -32,33 +42,36 @@ class Dragons
       puts "Where do you want to walk your dragon?"
       place = gets.chomp
 
-      @current_location << Location.new(place)
+      @current_location = Location.new(@first_name, place)
     end
   end
 
   def feed(food)
     if @likes.include? food 
-      puts "Yum! #{name} likes #{food}."
+      puts "Yum! #{@first_name} likes #{food}."
     end
 
     if @dislikes.include? food
-      puts "Yuck! #{name} dislikes eating #{food}"
+      puts "Yuck! #{first_name} dislikes eating #{food}"
     end
 
-    if {!@likes || !@dislikes}.include? food
+    unless (@likes || @dislikes).include? food
+      puts "#{first_name} does not eat that"
+    end
+  end
 
+  class Location
+    attr_accessor :place_name
+
+    def initialize(first_name, place)
+      @place_name = place
+      puts "You walked #{@first_name} to the #{place}"
+    end
   end
 end
 
 
-class Location
-  attr_accessor :place_name
 
-  def initialize(place)
-    @place_name = place
-    puts "You walked your #{@name} to #{place}"
-  end
-end
 
   
 
