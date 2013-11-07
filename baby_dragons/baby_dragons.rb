@@ -11,7 +11,7 @@ class Dragons
     @current_location = "home"
 
 
-    family_name(@name, @color)
+    family_name(name, color)
   end
 
   def family_name(name, color)
@@ -42,13 +42,13 @@ class Dragons
       puts "Where do you want to walk your dragon?"
       place = gets.chomp
 
-      @current_location = Location.new(@first_name, place)
+      @current_location = Location.new(first_name, place)
     end
   end
 
   def feed(food)
     if @likes.include? food 
-      puts "Yum! #{@first_name} likes #{food}."
+      puts "Yum! #{first_name} likes #{food}."
     end
 
     if @dislikes.include? food
@@ -65,7 +65,7 @@ class Dragons
 
     def initialize(first_name, place)
       @place_name = place
-      puts "You walked #{@first_name} to the #{place}"
+      puts "You walked #{first_name} to the #{place}"
     end
   end
 end
